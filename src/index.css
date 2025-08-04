@@ -2,41 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Quantum-inspired futuristic design system */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Dark quantum theme */
+    --background: 220 25% 6%;
+    --foreground: 210 40% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 220 25% 8%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 220 25% 8%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Quantum blue primary */
+    --primary: 217 91% 60%;
+    --primary-foreground: 220 25% 6%;
+    --primary-glow: 217 91% 70%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Quantum purple secondary */
+    --secondary: 260 100% 80%;
+    --secondary-foreground: 220 25% 6%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 25% 12%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Quantum cyan accent */
+    --accent: 189 100% 60%;
+    --accent-foreground: 220 25% 6%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 25% 15%;
+    --input: 220 25% 12%;
+    --ring: 217 91% 60%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Quantum-specific colors */
+    --quantum-green: 120 100% 60%;
+    --quantum-orange: 30 100% 60%;
+    --quantum-pink: 320 100% 70%;
+    
+    /* Gradients */
+    --gradient-quantum: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
+    --gradient-circuit: linear-gradient(90deg, hsl(var(--accent)), hsl(var(--primary)));
+    --gradient-glow: radial-gradient(circle, hsl(var(--primary-glow) / 0.2), transparent);
+    
+    /* Shadows and glows */
+    --shadow-quantum: 0 0 20px hsl(var(--primary) / 0.3);
+    --shadow-circuit: 0 0 15px hsl(var(--accent) / 0.2);
+    --glow-pulse: 0 0 30px hsl(var(--primary) / 0.6);
+
+    /* Animations */
+    --transition-quantum: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-glow: all 0.6s ease-in-out;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +122,53 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overflow-hidden;
   }
+}
+
+/* Quantum component styles */
+@layer components {
+  .quantum-glow {
+    box-shadow: var(--shadow-quantum);
+    transition: var(--transition-glow);
+  }
+  
+  .quantum-glow:hover {
+    box-shadow: var(--glow-pulse);
+  }
+  
+  .circuit-wire {
+    background: var(--gradient-circuit);
+    box-shadow: var(--shadow-circuit);
+  }
+  
+  .maze-cell {
+    transition: var(--transition-quantum);
+  }
+  
+  .quantum-pulse {
+    animation: quantum-pulse 2s ease-in-out infinite;
+  }
+  
+  .circuit-node {
+    background: var(--gradient-quantum);
+    border-radius: 50%;
+    box-shadow: var(--shadow-quantum);
+  }
+}
+
+@keyframes quantum-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes circuit-flow {
+  0% { transform: translateX(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes maze-solve {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 1; }
 }
