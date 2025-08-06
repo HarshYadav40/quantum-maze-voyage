@@ -1,27 +1,38 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from '@/components/theme-provider';
+import { Toaster } from '@/components/ui/sonner';
+import { Sidebar } from '@/components/layout/Sidebar';
+import { SidebarProvider } from '@/components/ui/sidebar';
 
-const queryClient = new QueryClient();
+// Pages
+import HomePage from '@/pages/HomePage';
+import SimulationPage from '@/pages/SimulationPage';
+import CircuitPage from '@/pages/CircuitPage';
+import LearnPage from '@/pages/LearnPage';
+import StatsPage from '@/pages/StatsPage';
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+function App() {
+  return (
+    <ThemeProvider defaultTheme="dark" storageKey="quantum-maze-theme">
+      <Router>
+        <SidebarProvider>
+          <div className="min-h-screen flex w-full bg-background">
+            <Sidebar />
+            <main className="flex-1">
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/simulation" element={<SimulationPage />} />
+                <Route path="/circuit" element={<CircuitPage />} />
+                <Route path="/learn" element={<LearnPage />} />
+                <Route path="/stats" element={<StatsPage />} />
+              </Routes>
+            </main>
+          </div>
+          <Toaster />
+        </SidebarProvider>
+      </Router>
+    </ThemeProvider>
+  );
+}
 
 export default App;
